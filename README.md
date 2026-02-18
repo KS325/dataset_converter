@@ -39,6 +39,7 @@ user_name/
        └ obs.pt
     ├ episode-1/
        └ obs.pt
+     ...
 ```
 ### .meta
 各ファイルの中身は以下の通り. 
