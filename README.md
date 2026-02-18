@@ -3,7 +3,7 @@
 ネット上に公開されているデータセットを, 自分のローカル環境に適したフォルダ構造で保存しなおすためのリポジトリ. 
 
 実装済み一覧
- - Lerobot Dataset v3.0形式で保存されたデータをエピソード毎に切り出して個々のフォルダに保存しなおす
+ - Extract "Lerobot dataset v3.0" by episode ([README](https://github.com/KS325/dataset_converter/edit/main/README.md#srclerobotdataset_3_0), [dir](https://github.com/KS325/dataset_converter/tree/main/src/lerobot/dataset_3_0))
 
 ## src/lerobot/dataset_3_0
 Lerobot Dataset v3.0形式のデータをエピソード毎に保存しなおすための実装. 
