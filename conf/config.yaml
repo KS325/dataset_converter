@@ -1,0 +1,30 @@
+
+runtype:
+  convert: True
+  save_gif: True
+  encode:
+    image: False
+
+dataset:
+  input:
+    root: "/home/sato/data/datasets"
+    data_name: "KS325/close-upper-drawer"
+  
+  output:
+    root: "/home/sato/data/pt_datasets"
+
+preprocess:
+  downsample:
+    step: 6
+
+  action:
+    normalize: True
+    range: "KS325/skill-set/.meta"
+  
+  image:
+    normalize: False
+    resize: [144, 192]
+
+  encode:
+    image_encoder: "google/siglip2-base-patch16-224"
+
