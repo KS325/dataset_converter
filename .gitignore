@@ -210,4 +210,5 @@ __marimo__/
 .venv_siglip2
 memo.sh
 bash
-test
+test.py
+conf/
