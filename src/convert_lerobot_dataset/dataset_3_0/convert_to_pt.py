@@ -9,6 +9,7 @@ import json
 from glob import glob
 import imageio
 import matplotlib.pyplot as plt
+# from src.config.process_config import ProcessConfig
 
 class LerobotDataset2Pt():
     def __init__(self, config):
@@ -26,38 +27,38 @@ class LerobotDataset2Pt():
         return output_root, output_root_meta
 
     def _extract_action_range(self, dataset, root_meta):
+        print("Extract 'action (min, max)'.")
+        # actions = np.stack([
+        #     dataset[i]["action"] for i in range(len(dataset))
+        #     ]
+        # )
+        action_min = None
+        action_max = None
+
+        for i in tqdm(range(len(dataset))):
+            action = dataset[i]["action"]
+            if action_min is None:
+                action_min = action.clone()
+                action_max = action.clone()
+            else:
+                action_min = torch.minimum(action_min, action)
+                action_max = torch.maximum(action_max, action)
+
+        # action_min = torch.from_numpy(action_min).float()
+        # action_max = torch.from_numpy(action_max).float()
+        action_min = action_min.float()
+        action_max = action_max.float()
+
+        torch.save(action_min, f"{root_meta}/action_min.pt")
+        torch.save(action_max, f"{root_meta}/action_max.pt")
+
+        print(f"action min: {action_min}\naction max: {action_max}")
+
         if self.cfg.preprocess.action.range is not None:
             print(f"Use '{self.cfg.preprocess.action.range.split("/")[:-1]}' action range.")
             range_path = Path(os.path.join(self.cfg.dataset.output.root, self.cfg.preprocess.action.range))
             action_min = torch.load(f"{range_path}/action_min.pt")
             action_max = torch.load(f"{range_path}/action_max.pt")
-            print(f"action min: {action_min}\naction max: {action_max}")
-        else:
-            print("Extract 'action (min, max)'.")
-            # actions = np.stack([
-            #     dataset[i]["action"] for i in range(len(dataset))
-            #     ]
-            # )
-            action_min = None
-            action_max = None
-
-            for i in tqdm(range(len(dataset))):
-                action = dataset[i]["action"]
-                if action_min is None:
-                    action_min = action.clone()
-                    action_max = action.clone()
-                else:
-                    action_min = torch.minimum(action_min, action)
-                    action_max = torch.maximum(action_max, action)
-
-            # action_min = torch.from_numpy(action_min).float()
-            # action_max = torch.from_numpy(action_max).float()
-            action_min = action_min.float()
-            action_max = action_max.float()
-
-            torch.save(action_min, f"{root_meta}/action_min.pt")
-            torch.save(action_max, f"{root_meta}/action_max.pt")
-
             print(f"action min: {action_min}\naction max: {action_max}")
 
         return action_min, action_max

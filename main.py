@@ -8,6 +8,8 @@ import yaml
 import torch
 import argparse
 
+# from src.config.process_config import ProcessConfig
+
 def load_config():
     # Config.yaml の呼び出し
     with open("./conf/config.yaml", "r") as yml:

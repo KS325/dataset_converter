@@ -208,7 +208,9 @@ __marimo__/
 
 .venv_n
 .venv_siglip2
+.zarr_venv
 memo.sh
 bash
 test.py
 conf/
+*.png
